@@ -1,16 +1,22 @@
-import React from 'react';
+import React from "react";
 import { createRoot, Root } from "react-dom/client";
-import { PhoneModal } from './components/PhoneModal';
+import { PhoneModal } from "./components/PhoneModal";
 
 let root: Root | null = null;
+let currentPromise: Promise<string> | null = null;
 
 export async function setPhone(): Promise<string> {
-  return new Promise((resolve) => {
+  if (currentPromise) {
+    return currentPromise;
+  }
+
+  currentPromise = new Promise((resolve) => {
     const container = getContainer();
 
     const handleClose = () => {
-      const savedPhone = localStorage.getItem("userPhone") || '';
+      const savedPhone = localStorage.getItem("userPhone") || "";
       root?.unmount();
+      currentPromise = null;
       resolve(savedPhone);
     };
 
@@ -20,6 +26,8 @@ export async function setPhone(): Promise<string> {
 
     root.render(React.createElement(PhoneModal, { onClose: handleClose }));
   });
+
+  return currentPromise;
 }
 
 function getContainer(): HTMLElement {

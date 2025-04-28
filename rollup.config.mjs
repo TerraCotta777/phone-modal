@@ -5,6 +5,7 @@ import dts from "rollup-plugin-dts";
 import terser from "@rollup/plugin-terser";
 import { readFileSync } from "fs";
 import typescript from "@rollup/plugin-typescript";
+import postcss from "rollup-plugin-postcss";
 
 const packageJson = JSON.parse(
   readFileSync(new URL("./package.json", import.meta.url))
@@ -33,6 +34,14 @@ export default [
         tsconfig: "./tsconfig.json",
         declaration: true,
         declarationDir: "dist/types",
+      }),
+      postcss({
+        extensions: [".css"],
+        minimize: true,
+        inject: {
+          insertAt: "top",
+        },
+        extract: false
       }),
       terser(),
     ],

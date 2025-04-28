@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { PhoneInput } from "./PhoneInput";
 import { SuccessScreen } from "./SuccessScreen";
@@ -9,6 +9,14 @@ type PhoneModalProps = {
 export const PhoneModal: FC<PhoneModalProps> = ({ onClose }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [savedPhone, setSavedPhone] = useState("");
+
+  useEffect(() => {
+    const existingPhone = localStorage.getItem("userPhone");
+    if (existingPhone) {
+      setSavedPhone(existingPhone);
+      setIsSuccess(true);
+    }
+  }, []);
 
   const handleSave = (phone: string) => {
     localStorage.setItem("userPhone", phone);

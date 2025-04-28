@@ -1,16 +1,19 @@
-import { FC, FormEvent, useState } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 
 interface PhoneInputProps {
   onSave: (phone: string) => void;
-  initialPhone?: string;
 }
 
-export const PhoneInput: FC<PhoneInputProps> = ({
-  onSave,
-  initialPhone = "",
-}) => {
-  const [phone, setPhone] = useState(initialPhone);
+export const PhoneInput: React.FC<PhoneInputProps> = ({ onSave }) => {
+  const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const savedPhone = localStorage.getItem("userPhone");
+    if (savedPhone) {
+      setPhone(savedPhone);
+    }
+  }, []);
 
   const validatePhone = (value: string): boolean => {
     const phoneRegex = /^\d{10,}$/;

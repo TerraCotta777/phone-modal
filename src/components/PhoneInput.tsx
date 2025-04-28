@@ -1,4 +1,5 @@
 import { FC, FormEvent, useEffect, useState } from "react";
+import { styles } from "../styles/modalStyles";
 
 interface PhoneInputProps {
   onSave: (phone: string) => void;
@@ -41,10 +42,11 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({ onSave }) => {
           onChange={(e) => setPhone(e.target.value)}
           placeholder="Enter phone number"
           aria-label="Phone number"
+          style={styles.input}
         />
-        {error && <div style={{ color: "red" }}>{error}</div>}
+        {error && <div style={styles.error}>{error}</div>}
       </div>
-      <button type="submit">Save</button>
+      <button type="submit" style={styles.button}>Save</button>
     </form>
   );
 };

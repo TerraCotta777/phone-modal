@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { PhoneInput } from "./PhoneInput";
 import { SuccessScreen } from "./SuccessScreen";
+import { styles } from "../styles/modalStyles";
+
 type PhoneModalProps = {
   onClose: () => void;
 };
@@ -29,8 +31,8 @@ export const PhoneModal: FC<PhoneModalProps> = ({ onClose }) => {
   };
 
   return createPortal(
-    <div className="phone-modal-backdrop">
-      <div className="phone-modal">
+    <div style={styles.backdrop}>
+      <div style={styles.modal}>
         {isSuccess ? (
           <SuccessScreen phone={savedPhone} onClose={handleClose} />
         ) : (

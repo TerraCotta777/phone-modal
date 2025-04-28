@@ -3,10 +3,12 @@ import commonjs from "@rollup/plugin-commonjs";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import dts from "rollup-plugin-dts";
 import terser from "@rollup/plugin-terser";
-import { readFileSync } from 'fs';
-import typescript from '@rollup/plugin-typescript';
+import { readFileSync } from "fs";
+import typescript from "@rollup/plugin-typescript";
 
-const packageJson = JSON.parse(readFileSync(new URL('./package.json', import.meta.url)));
+const packageJson = JSON.parse(
+  readFileSync(new URL("./package.json", import.meta.url))
+);
 
 export default [
   {
@@ -27,16 +29,22 @@ export default [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({
+        tsconfig: "./tsconfig.json",
+        declaration: true,
+        declarationDir: "dist/types",
+      }),
       terser(),
     ],
   },
   {
     input: "src/index.ts",
-    output: [{ 
-      file: "dist/types/index.d.ts",
-      format: "es"
-    }],
+    output: [
+      {
+        file: "dist/types/index.d.ts",
+        format: "es",
+      },
+    ],
     plugins: [dts()],
   },
 ];

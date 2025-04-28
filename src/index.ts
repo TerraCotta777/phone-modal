@@ -9,8 +9,9 @@ export async function setPhone(): Promise<string> {
     const container = getContainer();
 
     const handleClose = () => {
+      const savedPhone = localStorage.getItem("userPhone") || '';
       root?.unmount();
-      resolve("mock-phone");
+      resolve(savedPhone);
     };
 
     if (!root) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot, Root } from "react-dom/client";
-import { PhoneModal } from './PhoneModal';
+import { PhoneModal } from './components/PhoneModal';
 
 let root: Root | null = null;
 

@@ -16,6 +16,7 @@ export const styles = {
     padding: "20px",
     borderRadius: "8px",
     minWidth: "300px",
+    color: "black",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
   },
   input: {
@@ -29,6 +30,7 @@ export const styles = {
     backgroundColor: "#007bff",
     color: "white",
     border: "none",
+    marginTop: "15px",
     padding: "8px 16px",
     borderRadius: "4px",
     cursor: "pointer",

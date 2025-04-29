@@ -2,40 +2,46 @@ import React from "react";
 import { createRoot, Root } from "react-dom/client";
 import { PhoneModal } from "./components/PhoneModal";
 
-let root: Root | null = null;
-let currentPromise: Promise<string> | null = null;
+class PhoneModalManager {
+  private root: Root | null = null;
+  private currentPromise: Promise<string> | null = null;
 
-export async function setPhone(): Promise<string> {
-  if (currentPromise) {
-    return currentPromise;
+  private getContainer(): HTMLElement {
+    let el = document.getElementById("phone-modal-container");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "phone-modal-container";
+      document.body.appendChild(el);
+    }
+    return el;
   }
 
-  currentPromise = new Promise((resolve) => {
-    const container = getContainer();
-
-    const handleClose = () => {
-      const savedPhone = localStorage.getItem("userPhone") || "";
-      root?.unmount();
-      currentPromise = null;
-      resolve(savedPhone);
-    };
-
-    if (!root) {
-      root = createRoot(container);
+  async setPhone(): Promise<string> {
+    if (this.currentPromise) {
+      return this.currentPromise;
     }
 
-    root.render(React.createElement(PhoneModal, { onClose: handleClose }));
-  });
+    this.currentPromise = new Promise((resolve) => {
+      const container = this.getContainer();
 
-  return currentPromise;
-}
+      const handleClose = () => {
+        const savedPhone = localStorage.getItem("userPhone") || "";
+        this.root?.unmount();
+        this.root = null;
+        this.currentPromise = null;
+        resolve(savedPhone);
+      };
 
-function getContainer(): HTMLElement {
-  let el = document.getElementById("phone-modal-container");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "phone-modal-container";
-    document.body.appendChild(el);
+      if (!this.root) {
+        this.root = createRoot(container);
+      }
+
+      this.root.render(React.createElement(PhoneModal, { onClose: handleClose }));
+    });
+
+    return this.currentPromise;
   }
-  return el;
 }
+
+const manager = new PhoneModalManager();
+export const setPhone = () => manager.setPhone();

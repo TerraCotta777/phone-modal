@@ -122,16 +122,15 @@ phone-modal/
 │   │   ├── PhoneInput.test.tsx
 │   │   ├── PhoneModal.test.tsx
 │   │   ├── SuccessScreen.test.tsx
-│   │   └── index.test.ts
+│   │   ├── index.test.ts
+│   │   └── setupTests.ts
 │   ├── components/
 │   │   ├── PhoneInput.tsx
 │   │   ├── PhoneModal.tsx
 │   │   └── SuccessScreen.tsx
 │   ├── styles/
 │   │   └── modalStyles.ts
-│   ├── types/
-│   ├── index.ts
-│   └── setupTests.ts
+│   └── index.ts
 ├── package.json
 ├── package-lock.json
 ├── tsconfig.json

@@ -1,6 +1,6 @@
 {
   "name": "phone-modal",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/types/index.d.ts",
@@ -19,7 +19,6 @@
     "input"
   ],
   "author": "terracotta00",
-  "license": "MIT",
   "type": "commonjs",
   "description": "A React component that displays a modal for collecting and validating phone numbers, with success state handling and local storage persistence.",
   "dependencies": {
